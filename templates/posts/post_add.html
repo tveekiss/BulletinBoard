@@ -1,0 +1,41 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block header %}
+    {{ form.media }}
+{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        
+          <div class="form-group">
+            <label for="{{ form.title.id_for_label }}">Заголовок: </label>
+              {{ form.title }}
+              <div class="invalid-feedback">
+                  {{ form.title.errors }}
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="{{ form.text.id_for_label }}">Текст: </label>
+              {{ form.text }}
+              <div class="invalid-feedback">
+                  {{ form.text.errors }}
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="{{ form.category.id_for_label }}">Категория: </label>
+              {{ form.category }}
+              <div class="invalid-feedback">
+                  {{ form.category.errors }}
+              </div>
+          </div>
+        {% if title == 'Создание объявления' %}
+            <button type="submit" class="btn btn-primary btn-block">Создать объявление</button>
+        {% else %}
+            <button type="submit" class="btn btn-primary btn-block">Изменить объявление</button>
+        {% endif %}
+    </form>
+{% endblock %}

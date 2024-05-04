@@ -1,0 +1,40 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    {% if bulletins %}
+        <div class="container mt-3">
+            <h1 class="text-center">{{ title }}</h1>
+            <a href="{% url 'create' %}" class="btn btn-primary mb-3">Создать объявление</a>
+            <div class="row">
+                <div class="col-md-12">
+                    {% for bulletin in bulletins %}
+                        <div class="card mb-3">
+                          <div class="card-header">
+                            Категория: {{ bulletin.category }}
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title">{{ bulletin.title }}</h5>
+                            <div class="ck ck-content">
+                                {% autoescape off %}
+                                <p class="card-text">{{ bulletin.text|truncatewords:30|safe }}</p>
+                                {% endautoescape %}
+                            </div>
+                            <a href="{% url 'post_view' bulletin.id %}" class="btn btn-primary">Читать</a>
+                          </div>
+                          <div class="card-footer text-muted">
+                              создал: <strong>{{ bulletin.author }}</strong>  <small>{{ bulletin.date }}</small>
+                          </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h2>Объявлений нет:с</h2>
+    {% endif %}
+    
+{% endblock %}

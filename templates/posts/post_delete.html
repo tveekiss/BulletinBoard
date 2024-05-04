@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block content %}
+<h1 class="text-center">{{ title }}</h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    <p class="text-center mt-5">Удаляем "<strong>{{ object.title }}</strong>"?</p>
+    <div class="text-center mb-5">
+        <input type="submit" class="btn btn-danger " value="Удалить" />
+    </div>
+</form>
+{% endblock content %}
