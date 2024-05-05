@@ -14,6 +14,18 @@ class PostListView(ListView):
     extra_context = {'title': 'Объявления'}
 
 
+class MyPostListView(ListView):
+    model = Post
+    ordering = '-date'
+    template_name = 'posts/post_list.html'
+    context_object_name = 'bulletins'
+    extra_context = {'title': 'Мои объявления'}
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(author=self.request.user)
+        return queryset
+
+
 class PostDetailView(DetailView):
     model = Post
     template_name = 'posts/post_view.html'
