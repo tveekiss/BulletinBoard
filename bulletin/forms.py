@@ -1,7 +1,7 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 
-from bulletin.models import Post
+from bulletin.models import Post, Reply
 
 
 class PostForm(forms.ModelForm):
@@ -17,3 +17,10 @@ class PostForm(forms.ModelForm):
             'text': CKEditor5Widget(attrs={'class': 'form-control django_ckeditor_5'}, config_name='extends'),
             'category': forms.Select(attrs={'class': 'form-control'})
         }
+
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = Reply
+        fields = ['text']
+        widgets = {'text': forms.Textarea(attrs={'class': 'form-control'})}

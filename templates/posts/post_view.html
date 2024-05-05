@@ -12,10 +12,12 @@
     </div>
     <p>Создал: <strong>{{ bulletin.author }}</strong></p>
     <p>{{ bulletin.date|date:'d.m.Y H:i' }}</p>
-    {% if user == bulletin.author %}
-        <a href="{% url 'post_update' bulletin.id %}" class="btn btn-primary mt-5">Редактировать</a>
-        <a href="{% url 'post_delete' bulletin.id %}" class="btn btn-danger mt-5">Удалить</a>
-    {% else %}
-        <a href="#" class="btn btn-primary mt-5">Откликнуться</a>
+    {% if request.user.is_authenticated %}
+        {% if user == bulletin.author %}
+            <a href="{% url 'post_update' bulletin.id %}" class="btn btn-primary mt-5">Редактировать</a>
+            <a href="{% url 'post_delete' bulletin.id %}" class="btn btn-danger mt-5">Удалить</a>
+        {% else %}
+            <a href="{% url 'like' bulletin.id %}" class="btn btn-primary mt-5">Откликнуться</a>
+        {% endif %}
     {% endif %}
 {% endblock content %}

@@ -29,4 +29,5 @@ class Reply(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     text = models.TextField()
+    agree = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)

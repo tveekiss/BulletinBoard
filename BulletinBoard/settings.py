@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bulletin',
     'users',
     'django_ckeditor_5',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -217,3 +218,24 @@ CKEDITOR_5_CONFIGS = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# E-mail settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'egor-shiryaev2013@yandex.ru'
+EMAIL_HOST_PASSWORD = 'gwwkidgbyvmmtgco'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = 'egor-shiryaev2013@yandex.ru'
+
+# celery settings
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+

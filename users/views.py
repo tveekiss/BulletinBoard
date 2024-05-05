@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .forms import UserRegisterForm, UserAuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.mail import send_mail
 
 
 def register(request):
@@ -12,6 +13,12 @@ def register(request):
             user = form.save()
             login(request, user)
             messages.success(request, 'Вы успешно зарегистрировались!')
+            send_mail(
+                subject='Добро пожаловать на наш сайт!',
+                message=f'{user.username}, вы успешно зарегистрировались!',
+                from_email=None,
+                recipient_list=[user.email]
+            )
             return redirect('home')
         else:
             messages.error(request, 'Ошибка регистрации')

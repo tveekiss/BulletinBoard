@@ -1,0 +1,40 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center">{{ title }}</h1>
+    <form action="" method="get">
+        {{ filterset.form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Найти">
+    </form>
+    {% if replies %}
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for reply in replies %}
+                        <div class="card mb-3">
+                          <div class="card-header">
+                            Отклик на объявление - <a href="{{ reply.post.get_absolute_url }}">{{ reply.post.title }}</a>
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title">Сообщение от: <strong>{{ reply.author }}</strong></h5>
+                            <p class="card-text">{{ reply.text }}</p>
+                            <a href="{% url 'agree_reply' reply.pk %}" class="btn btn-success">Принять</a>
+                            <a href="{% url 'disagree_reply' reply.pk %}" class="btn btn-danger">Отклонить</a>
+                          </div>
+                          <div class="card-footer text-muted">
+                            <small>{{ reply.date }}</small>
+                          </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h2 class="text-center">Откликов нет :с</h2>
+    {% endif %}
+    
+{% endblock %}
