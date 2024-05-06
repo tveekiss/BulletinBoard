@@ -5,19 +5,21 @@
 {% endblock title %}
 
 {% block content %}
-    <h1 class="text-center">{{ bulletin.title }}</h1>
-    <p>Категория: {{ bulletin.category }}</p>
-    <div class="ck ck-content">
-        <p>{{ bulletin.text|safe }}</p>
-    </div>
-    <p>Создал: <strong>{{ bulletin.author }}</strong></p>
-    <p>{{ bulletin.date|date:'d.m.Y H:i' }}</p>
-    {% if request.user.is_authenticated %}
-        {% if user == bulletin.author %}
-            <a href="{% url 'post_update' bulletin.id %}" class="btn btn-primary mt-5">Редактировать</a>
-            <a href="{% url 'post_delete' bulletin.id %}" class="btn btn-danger mt-5">Удалить</a>
-        {% else %}
-            <a href="{% url 'like' bulletin.id %}" class="btn btn-primary mt-5">Откликнуться</a>
+    <div class="container">
+        <h1 class="text-center">{{ bulletin.title }}</h1>
+        <p><i>Категория: {{ bulletin.category }}</i></p>
+        <div class="ck ck-content ">
+            <p>{{ bulletin.text|safe }}</p>
+        </div>
+        <p>Создал: <strong>{{ bulletin.author }}</strong></p>
+        <p>{{ bulletin.date|date:'d.m.Y H:i' }}</p>
+        {% if request.user.is_authenticated %}
+            {% if user == bulletin.author %}
+                <a href="{% url 'post_update' bulletin.id %}" class="btn btn-primary mt-5">Редактировать</a>
+                <a href="{% url 'post_delete' bulletin.id %}" class="btn btn-danger mt-5">Удалить</a>
+            {% else %}
+                <a href="{% url 'like' bulletin.id %}" class="btn btn-primary mt-5">Откликнуться</a>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </div>
 {% endblock content %}

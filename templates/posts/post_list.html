@@ -18,7 +18,6 @@
                             <div class="list-group">
                                 {% for category in categories %}
                                     <a href="{% url 'category-home' category.id %}" class="list-group-item list-group-item-action">{{ category.name }}  <span class="badge badge-primary badge-pill">{{ category.snt }}</span></a>
-                                    
                                 {% endfor %}
                             </div>
                         </div>
