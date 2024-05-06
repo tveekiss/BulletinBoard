@@ -1,8 +1,7 @@
 from celery import shared_task
-import time
-
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
+
 from .models import Reply, Post
 
 

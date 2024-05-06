@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'users',
     'django_ckeditor_5',
     'django_filters',
+    "django_apscheduler",
+
 ]
 
 MIDDLEWARE = [
@@ -123,7 +125,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 customColorPalette = [
         {
@@ -152,12 +153,14 @@ customColorPalette = [
         },
     ]
 
+CKEDITOR_5_ALLOW_ALL_FILE_TYPES = True
+CKEDITOR_5_UPLOAD_FILE_TYPES = ['jpeg', 'pdf', 'png'] # optional
 CKEDITOR_5_CONFIGS = {
-    'default': {
-
-        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
-                    'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
-    },
+  'default': {
+      'toolbar': ['heading', '|', 'bold', 'italic', 'link',
+                  'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'FileUpload' ], # include fileUpload here
+      'language': 'de',
+  },
     'extends': {
         'language': 'ru',
         'blockToolbar': [
@@ -169,7 +172,7 @@ CKEDITOR_5_CONFIGS = {
         ],
         'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
                     'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing',
-                    'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', 'FileUpload', '|',
                     'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
                     'insertTable',],
         'image': {
@@ -238,4 +241,11 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        ...
+    ),
+}
 

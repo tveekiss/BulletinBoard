@@ -15,4 +15,3 @@ def reply_create(instance: Reply, created, **kwargs):
 def reply_delete(instance: Reply, **kwargs):
     if instance.agree:
         delete_reply.delay(instance.author.id, instance.post.id)
-

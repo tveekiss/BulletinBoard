@@ -5,17 +5,18 @@
 {% endblock title %}
 
 {% block content %}
-<h1>{{ title }}</h1>
+<h1 class="text-center">{{ title }}</h1>
     <form action="" method="post">
         {% csrf_token %}
-          <div class="form-group">
-            <label for="{{ form.text.id_for_label }}">Текст: </label>
-              {{ form.text }}
-              <div class="invalid-feedback">
-                  {{ form.text.errors }}
-              </div>
-          </div>
+        <div class="container text-center">
+            <div class="form-group">
+                {{ form.text }}
+                <div class="invalid-feedback">
+                    {{ form.text.errors }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary ">Отправить сообщение</button>
+        </div>
         
-            <button type="submit" class="btn btn-primary btn-block">Отправить сообщение</button>
     </form>
 {% endblock %}

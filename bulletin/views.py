@@ -5,11 +5,11 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django_filters import rest_framework as filters
 
 from .forms import PostForm, ReplyForm
 from .models import Post, Reply, Category
 from .filters import ReplyFilter
-
 
 
 class PostListView(ListView):
@@ -106,20 +106,19 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 
 class ReplyList(LoginRequiredMixin, ListView):
     model = Reply
-    paginate_by = 10
     ordering = '-date'
     template_name = 'replies/reply_list.html'
     context_object_name = 'replies'
+    filter_backends = (filters.DjangoFilterBackend,)
 
     def get_queryset(self):
         queryset = Reply.objects.filter(post__author=self.request.user)
-        print(self.request)
-        self.filterset = ReplyFilter(self.request.GET, queryset=queryset)
-        return self.filterset.qs
+        self.filter = ReplyFilter(self.request.GET, request=self.request, queryset=queryset)
+        return self.filter.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['filterset'] = self.filterset
+        context['filterset'] = self.filter
         context['title'] = 'Отклики'
         return context
 

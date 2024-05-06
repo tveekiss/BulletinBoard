@@ -6,8 +6,9 @@ from .models import Post, Reply
 
 
 def myFilterRequests(request):
+    print(request)
     if request is None:
-        return Post.objects.none()
+        return Post.objects.all()
 
     user = request.user
     print(user)
@@ -18,6 +19,7 @@ class ReplyFilter(FilterSet):
     post = django_filters.ModelChoiceFilter(
         queryset=myFilterRequests,
         empty_label='Все посты',
+        label='Поиск',
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 

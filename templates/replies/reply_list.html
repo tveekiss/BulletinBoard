@@ -7,8 +7,10 @@
 {% block content %}
     <h1 class="text-center">{{ title }}</h1>
     <form action="" method="get">
-        {{ filterset.form.as_p }}
-        <input type="submit" class="btn btn-primary" value="Найти">
+        <div class="col-md-4">
+            {{ filterset.form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Найти">
+        </div>
     </form>
     {% if replies %}
         <div class="container mt-3">
